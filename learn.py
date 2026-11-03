@@ -7,7 +7,6 @@ import uvicorn
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
-from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 # Create the FastAPI app instance that will serve the calculator UI and API.
@@ -22,12 +21,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Find the folder that contains this script and the static UI files.
+# Find the folder that contains this script and the UI files.
+# The UI lives in public/ because Vercel serves that folder as static files.
 BASE_DIR = Path(__file__).resolve().parent
-STATIC_DIR = BASE_DIR / "static"
-
-# Serve files from the static folder when the browser requests /static/...
-app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+STATIC_DIR = BASE_DIR / "public"
 
 
 # Define the expected JSON body for the calculator API.
