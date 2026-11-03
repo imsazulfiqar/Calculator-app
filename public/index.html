@@ -120,6 +120,10 @@
                 body: JSON.stringify({ expression: current })
               });
               const data = await response.json();
+              if (!response.ok) {
+                result.textContent = data.detail || 'Invalid expression';
+                return;
+              }
               display.textContent = data.result;
               result.textContent = `${data.expression} = ${data.result}`;
               current = String(data.result);

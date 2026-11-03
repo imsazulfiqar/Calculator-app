@@ -12,15 +12,16 @@ A small FastAPI-based calculator application that serves a modern web UI and exp
 ## Project Structure
 
 - `learn.py` - main FastAPI application
-- `static/index.html` - calculator frontend UI
-- `static/` - static asset folder
+- `public/index.html` - calculator frontend UI
+- `requirements.txt` - Python dependencies
+- `pyproject.toml` - tells Vercel that the app lives in `learn.py`
 
 ## Setup
 
 1. Install Python dependencies:
 
 ```bash
-python3 -m pip install fastapi uvicorn
+python3 -m pip install -r requirements.txt
 ```
 
 2. Run the application:
@@ -60,3 +61,9 @@ Response:
 
 - The app validates expressions and returns HTTP 400 for invalid input.
 - The UI sends expressions to `/api/calc` and renders the result.
+
+## Deploying to Vercel
+
+Import this repository in Vercel. Vercel detects FastAPI, runs `learn.py` as a
+serverless function (via the entrypoint in `pyproject.toml`), and serves
+`public/` as static files. No extra settings are needed.
